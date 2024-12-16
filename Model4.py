@@ -242,13 +242,7 @@ for n in tqdm(range(1, numSteps), desc="Simulation Progress"):
 # Piston motion
     yoke_p_Ref_arr[n] = wave[n]
     yoke_p_arr[n] = (x_cyl2_arr[n-1]-Dead_PTO) / x_PTO * 100
-    Proportional = (yoke_p_Ref_arr[n] - yoke_p_arr[n])
-    if n == 1:
-        Integral = 0
-    else:
-        Integral += (yoke_p_Ref_arr[n] - yoke_p_arr[n]) * Ts
-    Derivative = ((yoke_p_Ref_arr[n] - yoke_p_arr[n])-(yoke_p_Ref_arr[n-1] - yoke_p_arr[n-1]))/((Ts*n)-(Ts*n-1))
-    x_v_arr[n] = Proportional * 0.02 + Integral * 0.0001 + Derivative * 0.001
+    x_v_arr[n] = (yoke_p_Ref_arr[n]-50)/15
     p_S_arr[n] = p_S_data[n]
     p_T_arr[n] = p_T_data[n]
     
